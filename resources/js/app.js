@@ -2,16 +2,33 @@
 
     "use strict";
 
-    $('nav .dropdown').hover(function() {
-        var $this = $(this);
-        $this.addClass('show');
-        $this.find('> a').attr('aria-expanded', true);
-        $this.find('.dropdown-menu').addClass('show');
-    }, function() {
-        var $this = $(this);
-        $this.removeClass('show');
-        $this.find('> a').attr('aria-expanded', false);
-        $this.find('.dropdown-menu').removeClass('show');
-    });
+    var fullHeight = function() {
+
+        $('.js-fullheight').css('height', $(window).height());
+        $(window).resize(function() {
+            $('.js-fullheight').css('height', $(window).height());
+        });
+
+    };
+    fullHeight();
+
+    var burgerMenu = function() {
+
+        $('.js-nav-toggle').on('click', function(event) {
+            event.preventDefault();
+            var $this = $(this);
+            if ($('body').hasClass('menu-show')) {
+                $('body').removeClass('menu-show');
+                $('#nav_bar > .js-nav-toggle').removeClass('show');
+            } else {
+                $('body').addClass('menu-show');
+                setTimeout(function() {
+                    $('#nav_bar > .js-nav-toggle').addClass('show');
+                }, 900);
+            }
+        })
+    };
+    burgerMenu();
+
 
 })(jQuery);
